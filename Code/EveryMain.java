@@ -15,9 +15,10 @@ public class EveryMain {
         //EggDropping eggDrop = new EggDropping();
         //eggDrop.calculateNofWays(25, 5);
         
-        Solution sol = new Solution();
-        ArrayList<Integer> list = sol.getRow(2);
-        list.stream().forEach(System.out::print);
+        LongestPalindrome palin = new LongestPalindrome();
+
+        int len = palin.findLongestPalindrome("acnamana");
+        System.out.println(len);
 
     }
 }
