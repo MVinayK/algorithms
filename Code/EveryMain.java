@@ -20,6 +20,10 @@ public class EveryMain {
 
         BSTPreOrder preOrder = new BSTPreOrder();
         Node root = preOrder.buildTreeWithPreOrder(new int[]{10, 5, 1, 7, 40, 50});
-        TreeUtil.inOrderPrint(root);
+        //TreeUtil.inOrderPrint(root);
+        System.out.println("Height of the tree : " + TreeUtil.height(root));
+
+        TreeUtil.traverseLevelOrder(root, null);
+
     }
 }
