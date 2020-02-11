@@ -18,12 +18,16 @@ public class EveryMain {
         //int len = palin.findLongestPalindrome("acnamana");
         //System.out.println(len);
 
-        BSTPreOrder preOrder = new BSTPreOrder();
-        Node root = preOrder.buildTreeWithPreOrder(new int[]{10, 5, 1, 7, 40, 50});
+        //BSTPreOrder preOrder = new BSTPreOrder();
+        //Node root = preOrder.buildTreeWithPreOrder(new int[]{10, 5, 1, 7, 40, 50});
         //TreeUtil.inOrderPrint(root);
-        System.out.println("Height of the tree : " + TreeUtil.height(root));
+        //System.out.println("Height of the tree : " + TreeUtil.height(root));
 
-        TreeUtil.traverseLevelOrder(root, null);
+        //TreeUtil.traverseLevelOrder(root, null);
+
+        FindMaxStock st = new FindMaxStock();
+        int max = st.findMaxStock(new int[]{100, 113, 110, 85, 105, 102, 86, 63, 81, 101, 94, 106, 101, 79, 94, 90, 97});
+        System.out.println(max);
 
     }
 }
