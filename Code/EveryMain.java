@@ -1,3 +1,4 @@
+import java.util.stream.IntStream;
 
 /**
  * EveryMain
@@ -25,9 +26,16 @@ public class EveryMain {
 
         //TreeUtil.traverseLevelOrder(root, null);
 
-        FindMaxStock st = new FindMaxStock();
-        int max = st.findMaxStock(new int[]{100, 113, 110, 85, 105, 102, 86, 63, 81, 101, 94, 106, 101, 79, 94, 90, 97});
-        System.out.println(max);
+        //FindMaxStock st = new FindMaxStock();
+        //int max = st.findMaxStock(new int[]{100, 113, 110, 85, 105, 102, 86, 63, 81, 101, 94, 106, 101, 79, 94, 90, 97});
+        //System.out.println(max);
+
+        PushZeroToEnd pZeroToEnd = new PushZeroToEnd();
+        int[] ans = pZeroToEnd.pushZeroToEnd(new int[]{100, 113, 0, 0, 0, 110, 85, 105, 0, 0, 102, 86, 63, 81, 0, 0});
+
+        IntStream.range(0, ans.length).forEach(e -> {
+            System.out.print(ans[e] + " ");
+        });
 
     }
 }
