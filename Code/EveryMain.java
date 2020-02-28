@@ -37,7 +37,10 @@ public class EveryMain {
        //     System.out.print(ans[e] + " ");
        // });
 
-       PythagorasTheorem th = new PythagorasTheorem();
-       th.solve(new int[] {3, 1, 4, 6, 5});
+       //PythagorasTheorem th = new PythagorasTheorem();
+       //th.solve(new int[] {3, 1, 4, 6, 5});
+
+       MinEdits e = new MinEdits();
+       System.out.println(e.minEdits("booksss", "bootx"));
     }
 }
