@@ -1,0 +1,7 @@
+package Code;
+
+
+class GenericTest {
+
+}
+

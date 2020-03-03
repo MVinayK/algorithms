@@ -1,4 +1,4 @@
-import java.util.stream.IntStream;
+
 
 /**
  * EveryMain
@@ -40,7 +40,10 @@ public class EveryMain {
        //PythagorasTheorem th = new PythagorasTheorem();
        //th.solve(new int[] {3, 1, 4, 6, 5});
 
-       MinEdits e = new MinEdits();
-       System.out.println(e.minEdits("booksss", "bootx"));
+       //MinEdits e = new MinEdits();
+       //System.out.println(e.minEdits("booksss", "bootx"));
+
+       GenerateCombination gc = new GenerateCombination();
+       gc.generateCombination("12345");
     }
 }
