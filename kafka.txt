@@ -1,0 +1,147 @@
+Kafka notes
+
+1. start zookeeper
+2. start kafka (has the configurations ready in a shel script in linux and exe for windowns so easy to start)
+3. you need to create topics to work with it first
+	- kafka-topis.sh --list --bootstrap-server localhost:9092
+	- kafka-topis.sh --create --zookeeper localhost:2181 --topic test --replication-factor 1 --partiction 1 #createtest
+4. start producer
+	- kafka-console-producer.sh --broker-list localhost:9092 --topic test #producertest
+5. start consumer
+	- kafka-console-consumer.sh --broker-list localhost:9092 --topic test #producertest
+
+6. kafka cluster
+	has a number of brokers -- one broker has a partition of a topic and has replication of the same on other brokers , the main broker is called leader others are followers, 
+	In sync repilcas
+	leaders track last requested offset of the followers
+	replica is out of sync if:
+		hasn't reqested message in more than 10 secs 
+		hasn't caught up to the recent message in 10 secs
+	Time controlled bu replica.lag.time.max.ms
+	Each partition also has a preffered leader
+	
+	min.insync.replicas --> the no of replicas that must be insync for a partition of the topic to be considered available
+	min.insync.replicas=2
+	if your min insync replicas is less than the given value then kafka will stop the producers to produce but the consumers can continue to consumer
+	
+	Kafka Controller
+		- 
+		
+7. zookeeper	
+	- zookeeper-shell.sh localhost:2181
+		ls to see details zookeeper tree
+		ls /broker/ids, get /brokers/ids/0
+		get /controller --> when a broker becomes a controller and goes down then zookeper does assign another broker
+		in other way zookeeper manages the brokers
+		earlier everyone has to talk to zookeper for all the admin tasks but now that is done by kafka and kafka updates them to ookeeper like keeping the offesets ets
+		
+produces -> send data -> kafka topics
+topics as an ordered sequence of events and are immutable , monotonic incresing sequence 
+message -->  key and value (key allows kafka to send that msg to specific partition else if you do not specify kafka will send messages to the partitions in a round robin fation )
+log.retention.minutes = 3000
+log.retention.bytes=1024
+
+Compaction
+
+kafka-ressagn-partitions.sh --> If in case you are creating a topic with three partitions when one of the 3 brokers is down so one broker will be handling 2 partitions and other will be handling 1 partition, In that case when the 3rd broker comes up you can run the kafka-reassign-partition.sh to nrmalize the values
+
+Configuring produces
+Acknoledgement levels
+0 -> fire and forget (producer will not get any ack of the kafka recieving any messgae -- Fast) 1 -> wait for 1 broker to ack (producer will get 1 ack )
+All -> recieves all the replicas with leader broker that they have recieved the messages (high reliable)
+
+Retrying
+0 -> do not retry
+>0 -> retry might result in duplication 
+
+producer can choose idempotence -> producer sends and id and get ack back from broker containg that id so that it can be sure which ack it recieved for which message
+this will result in no duplication.
+
+Consumers
+
+read rec from a topic, work in prallel to be scalable
+consumer reads from the offsets and these offsets are maintained by zookeper. (Java API or spring boot starter are very popular)
+
+Consumer groups --> group of consumers to work in parallel to make things fast
+they read from parallel partitions good to have as mamy consumers as there are partitions, but if there are more partitions than the number of consumers then one consumer can read from multiple partitions.
+
+You can define multiple consumer groups as well if multiple parts of your application wants the same published data by the producer.
+
+Consumer coordination
+
+Internal topic __consumer_offsets --> this topic has a broker leader, this broker maintains the offsets which tell the consumer of a partition where it has left off and from where it has to pick up. This broker has a group coordinator which decides which broker will save the offsets of which consumer.
+
+Consumer configuation
+
+*Automatic -> suppose a consumer reads a message and it takes x amount of time to proces that message, and before the processing has been done the consumers sends the ack to the kafka then the consumer gets another message right aways and then starts the starvation case.
+
+*Manual asyncronous -> fairly safe but can re-process message
+
+*Manual syncronous --> after processing you ack to kafka
+
+Monitoring 
+
+-- kafka server reports using yammer metrics
+-- Metrics exposed via JMX
+-- easy to monitor
+
+What we can monitor ?
+-- messages/bytes in per secs
+-- bytes out per second
+-- under-replicated partitions
+-- network metrics
+
+securing your kafka
+
+2 types of security 
+1. internal communication , security.inter.broker.protocol=SSL (add certificates , truststores)
+2. external , security.protocol=SSL, ssl.truststore.location=, ssl.truststore.password=
+
+Authorization
+authorizer.class.name=kafka.security.auth.SimpleAclAuthorizer
+It has, 
+Access control lists(ACL's) 
+What actions can a given user performs
+Can extend Kafka Authorizer class
+
+Debugging your Kafka clustermodify the log4j.properties
+log4j.logger.kafka.controller etc
+as kafka is a java project
+
+you can check the records on the topics , how many consumers are connected, how many producers are connected
+
+ what to look out for in producection
+ Replication -- under partition min insync replicas
+ partitions can go in and out, brokers can restart, garbage collection 
+ kafka.common.NotEnoughReplicasException
+ 
+ kafka-preffered-leadership-election.sh
+ kafka-ressign-partitions.sh
+ 
+Zookeeper
+
+echo "srvr" | nc <zookeeper_ip> 2181 -- zookeeper stats
+
+KAFKA CONNECT
+kafka connect is a tool for scalably and reliably streaming data between Apache kafka and other systems
+
+Event streaming
+An abstact representation of infinite and ever growing dataset
+
+ordered, immutable, replayable
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+	
+	

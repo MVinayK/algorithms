@@ -1,4 +1,4 @@
-
+package Code;
 
 /**
  * EveryMain
@@ -43,7 +43,13 @@ public class EveryMain {
        //MinEdits e = new MinEdits();
        //System.out.println(e.minEdits("booksss", "bootx"));
 
-       GenerateCombination gc = new GenerateCombination();
-       gc.generateCombination("12345");
+       //GenerateCombination gc = new GenerateCombination();
+       //gc.generateCombination("12345");
+
+       //MaxContagiousArrayWithKEle mckele = new MaxContagiousArrayWithKEle();
+       //int res = mckele.calculateMaxContagiousSubArrayWithKElements(new int[] {1, 2, 1, 2, 5, 3, 3,3,3});
+       //System.out.println(res);
+
+        
     }
 }
