@@ -7,7 +7,9 @@ class BinarySearch {
         int[] array2 = new int[]{3, 4, 5, 6, 7, 8, 1, 2};
         //System.out.println(binarySearch(array, 1, 0, array.length - 1));
         //System.out.println(binarySearchRecur(array, 19, 0, array.length - 1));
-        System.out.println(findMinInSortedRotatedArr(array2, 0, array2.length - 1));
+        //System.out.println(findMinInSortedRotatedArr(array2, 0, array2.length - 1));
+        int[] array3 = new int[]{1, 2, 10, 11, 12, 4};
+        System.out.println(findPeak(array3, 0, array3.length - 1));
 
     }
 
@@ -79,6 +81,35 @@ class BinarySearch {
         } else {
             return findMinInSortedRotatedArr(arr, mid + 1, end);
         }
+    }
+
+    private static int findPeak(int[] arr, int start, int end) {
+
+        // boundary conditions
+
+        if(start > end) {
+            return -1;
+        }
+
+        if(start == end) {
+            return arr[start];
+        }
+
+        //main check
+        int mid = start + (end - start)/2;
+
+        if(arr[mid-1] < arr[mid] &&  arr[mid] > arr[mid + 1]) {
+            return arr[mid];
+        }
+
+        //go either left or right 
+        if(arr[mid] > arr[end]) {
+            //go left
+            return findPeak(arr, mid + 1, end);
+        } else {
+            return findPeak(arr, start, mid - 1);
+        }
+
     }
 
 }
