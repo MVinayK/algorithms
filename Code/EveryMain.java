@@ -50,6 +50,6 @@ public class EveryMain {
        //int res = mckele.calculateMaxContagiousSubArrayWithKElements(new int[] {1, 2, 1, 2, 5, 3, 3,3,3});
        //System.out.println(res);
 
-        
+        System.out.println("Hello");
     }
 }
